@@ -1,0 +1,21 @@
+/* src/components/MeatList.css */
+
+.meat-list-section {
+  padding-top: 20px;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--gray-800);
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--red-500);
+  padding-bottom: 10px;
+}
+
+.meat-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

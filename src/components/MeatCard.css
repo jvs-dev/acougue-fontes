@@ -1,0 +1,108 @@
+/* src/components/MeatCard.css */
+
+.meat-card {
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.meat-card:hover {
+  transform: translateY(-3px);
+}
+
+.meat-card-image-wrapper {
+  flex-shrink: 0;
+  width: 100px; /* Fixed width for the image */
+  height: 100px; /* Fixed height for the image */
+  overflow: hidden;
+  border-right: 1px solid var(--gray-200);
+}
+
+.meat-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  display: block;
+}
+
+.meat-card-details {
+  flex-grow: 1;
+  padding: 15px;
+}
+
+.meat-card-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 5px;
+}
+
+.meat-card-price {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--red-500);
+  margin-bottom: 10px;
+}
+
+.meat-card-info {
+  display: flex;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+}
+
+.meat-card-info span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.meat-card-info i {
+  color: var(--gray-500);
+}
+
+.meat-card-actions {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 8px;
+  padding: 10px;
+  border-left: 1px solid var(--gray-200);
+}
+
+.action-button {
+  background-color: var(--gray-200);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.action-button i {
+  font-size: 1.1rem;
+}
+
+.edit-button {
+  background-color: var(--red-500);
+  color: var(--white);
+}
+
+.edit-button:hover {
+  background-color: var(--red-600);
+}
+
+.delete-button {
+  background-color: var(--gray-300);
+  color: var(--gray-800);
+}
+
+.delete-button:hover {
+  background-color: var(--gray-400);
+}

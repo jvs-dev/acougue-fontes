@@ -1,0 +1,65 @@
+/* src/components/Header.css */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--gray-800);
+  color: var(--white);
+  padding: 15px 20px;
+  border-bottom: 5px solid var(--red-500);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-logo img {
+  height: 60px;
+}
+
+.header-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  margin: 0px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.header-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  height: 38px;
+  width: 38px;
+}
+
+.icon-button:nth-child(1) {
+  background: var(--red-600);
+}
+
+.icon-button img {
+  max-height: 100%;
+}
+
+.icon-button ion-icon {
+  font-size: 30px;
+}
+
+.icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
