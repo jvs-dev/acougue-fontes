@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 const app = initializeApp(FirebaseConfig);
 const db = getFirestore(app);
 import FirebaseConfig from "../../script/firebase/FirebaseConfig";
@@ -14,32 +18,19 @@ if (db) {
 }
 
 const Home = () => {
-  const meats = [
-    {
-      id: 1,
-      name: "CONTRA FILÉ",
-      price: 24.9,
-      category: "Bovino",
-      utility: ["Churrasco", "Feijoada"],
-      image: "",
-    },
-    {
-      id: 2,
-      name: "CONTRA FILÉ",
-      price: 24.9,
-      category: "Bovino",
-      utility: ["Churrasco", "Feijoada"],
-      image: "",
-    },
-    {
-      id: 3,
-      name: "CONTRA FILÉ",
-      price: 24.9,
-      category: "Bovino",
-      utility: ["Churrasco", "Feijoada"],
-      image: "",
-    },
-  ];
+  const [meats, setMeats] = useState([]);
+
+  async function getData() {
+    const querySnapshotMeats = await getDocs(collection(db, "meats"));
+    const meatsArray = [];
+    querySnapshotMeats.forEach((doc) => {
+      meatsArray.push({ id: doc.id, ...doc.data() });
+    });
+    setMeats(meatsArray);
+  }
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div className="dashboard-container">
@@ -47,7 +38,7 @@ const Home = () => {
       <div className="main-content">
         <MeatForm />
         <MeatList meats={meats} />
-      </div>      
+      </div>
     </div>
   );
 };

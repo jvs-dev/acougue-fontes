@@ -52,6 +52,14 @@
   font-family: "Poppins", sans-serif;
 }
 
+.meat-card-price span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--red-500);
+  margin-bottom: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
 .meat-card-info {
   display: flex;
   gap: 15px;

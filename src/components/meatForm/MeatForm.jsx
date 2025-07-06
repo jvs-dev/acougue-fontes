@@ -6,6 +6,11 @@ import {
   collection,
   addDoc,
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+import { Client, Storage } from "appwrite";
+const client = new Client()
+  .setEndpoint("https://nyc.cloud.appwrite.io/v1")
+  .setProject(`${import.meta.env.VITE_APPWRITE_PROJECT_ID}`);
+const storage = new Storage(client);
 const app = initializeApp(FirebaseConfig);
 const db = getFirestore(app);
 import "./MeatForm.css";
@@ -49,19 +54,34 @@ function MeatForm() {
     }
     const item = {
       name: meatName,
-      price: meatPrice,
+      price: Number(meatPrice),
       category: meatCategory,
       utitls: meatUtility,
       measure: measure,
     };
     try {
-      const response = await addDoc(collection(db, "meats"), item);
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Erro ao enviar a mensagem.");
-      }
-      setStatus("Mensagem enviada com sucesso!");
-      setStatusType("success");
+      const docRef = await addDoc(collection(db, "meats"), item);
+      const promise = storage.createFile(
+        `${import.meta.env.VITE_BUCKET_ID}`,
+        `${docRef.id}`,
+        meatImage
+      );
+      promise.then(
+        function (docRef) {
+          console.log(docRef); // Success
+          setStatus("Dados salvos com sucesso!");
+          setStatusType("success");
+          setMeatName(""); //clean fields
+          setMeatPrice("");
+          setMeatUtility("");
+          setMeatImage("");
+        },
+        function (error) {
+          setStatus("Erro ao salvar dados. Tente novamente.");
+          setStatusType("error");
+          console.error("Erro no envio:", error);
+        }
+      );
     } catch (error) {
       setStatus("Erro ao salvar dados. Tente novamente.");
       setStatusType("error");
