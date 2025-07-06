@@ -93,7 +93,7 @@ label.upload-button {
 }
 
 label.upload-button p {
-    margin: 0px;
+  margin: 0px;
 }
 
 .upload-button i {
@@ -118,4 +118,26 @@ label.upload-button p {
 
 .upload-info i {
   color: var(--gray-500);
+}
+
+.submitBtn {
+  background: var(--red-500);
+  border: 0px;
+  outline-width: 0px;
+  font-family: "Bebas Neue", sans-serif;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 24px;
+  padding: 8px 0px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submitBtn:hover {
+  opacity: 0.8;
 }

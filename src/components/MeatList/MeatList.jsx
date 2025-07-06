@@ -1,5 +1,5 @@
 import React from 'react';
-import MeatCard from './MeatCard';
+import MeatCard from '../meatcard/MeatCard';
 import './MeatList.css';
 
 function MeatList({ meats }) {
