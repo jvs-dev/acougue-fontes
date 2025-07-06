@@ -1,0 +1,121 @@
+/* src/components/MeatForm.css */
+
+.meat-form {
+  background-color: var(--white);
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--gray-200);
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--black);
+  font-size: 0.9rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  font-size: 1rem;
+  color: var(--gray-700);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.form-group input::placeholder {
+  color: var(--gray-500);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--red-500);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: "▼"; /* Custom dropdown arrow */
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--gray-500);
+}
+
+.form-group select {
+  appearance: none; /* Remove default select arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--white);
+  padding-right: 30px; /* Make space for custom arrow */
+}
+
+.image-upload-box {
+  border: 2px dashed var(--gray-300);
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--gray-100);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.image-upload-box:hover {
+  border-color: var(--red-500);
+  background-color: var(--gray-200);
+}
+
+label.upload-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  color: var(--black);
+  font-weight: 600;
+  padding: 50px 25px;
+  cursor: pointer;
+  margin: 0px;
+}
+
+label.upload-button p {
+    margin: 0px;
+}
+
+.upload-button i {
+  font-size: 1.3rem;
+}
+
+.file-name {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+}
+
+.upload-info {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.upload-info i {
+  color: var(--gray-500);
+}

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import './MeatForm.css';
+import React, { useState } from "react";
+import "./MeatForm.css";
 
 function MeatForm() {
-  const [meatName, setMeatName] = useState('');
-  const [meatPrice, setMeatPrice] = useState('');
-  const [meatCategory, setMeatCategory] = useState('Suíno');
-  const [meatUtility, setMeatUtility] = useState('');
+  const [meatName, setMeatName] = useState("");
+  const [meatPrice, setMeatPrice] = useState("");
+  const [meatCategory, setMeatCategory] = useState("Suíno");
+  const [meatUtility, setMeatUtility] = useState("");
   const [meatImage, setMeatImage] = useState(null);
 
   const handleImageChange = (e) => {
@@ -84,12 +84,13 @@ function MeatForm() {
           />
           <label htmlFor="imageUpload" className="upload-button">
             <i className="fas fa-cloud-upload-alt"></i>
-            CLIQUE PARA CARREGAR UMA IMAGEM
+            <p>CLIQUE PARA CARREGAR UMA IMAGEM</p>
           </label>
           {meatImage && <span className="file-name">{meatImage.name}</span>}
         </div>
         <p className="upload-info">
-          <i className="fas fa-info-circle"></i> Upload your photo (.jpg or .png, max size 500kb)
+          <i className="fas fa-info-circle"></i> Upload your photo (.jpg or
+          .png, max size 500kb)
         </p>
       </div>
     </form>
