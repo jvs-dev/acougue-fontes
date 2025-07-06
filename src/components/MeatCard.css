@@ -17,10 +17,12 @@
 
 .meat-card-image-wrapper {
   flex-shrink: 0;
-  width: 100px; /* Fixed width for the image */
-  height: 100px; /* Fixed height for the image */
+  width: 100px;
+  height: 100px;
   overflow: hidden;
   border-right: 1px solid var(--gray-200);
+  margin-left: 10px;
+  border-radius: 5px;
 }
 
 .meat-card-image {
@@ -44,9 +46,10 @@
 
 .meat-card-price {
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--red-500);
   margin-bottom: 10px;
+  font-family: "Poppins", sans-serif;
 }
 
 .meat-card-info {
