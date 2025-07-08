@@ -1,3 +1,4 @@
+# Logs
 logs
 *.log
 npm-debug.log*
@@ -5,17 +6,47 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-node_modules
-dist
-dist-ssr
+
+# Diretórios do sistema
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Diretórios de dependência
+node_modules/
+
+# Builds e cache
+dist/
+dist-ssr/
+.next/
+out/
+.cache/
+.vite/
+
+# Arquivos locais
 *.local
+*.env
+.env
+.env.*
+!.env.example
+
+# IDEs
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-.env
+
+# Test coverage
+coverage/
+.cypress/
+
+# Lockfiles (se não versionar)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
