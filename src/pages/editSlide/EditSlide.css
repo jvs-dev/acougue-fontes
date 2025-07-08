@@ -1,0 +1,17 @@
+.main-dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px; /* Largura máxima do dashboard */
+  background-color: var(--white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden; /* Garante que os cantos arredondados funcionem bem */
+}
+
+.dashboard-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Espaçamento entre as seções */
+}

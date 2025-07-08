@@ -1,0 +1,43 @@
+.meat-display-card {
+  background-color: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-wrapper::after {
+  content: "▼";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--gray-500);
+  font-size: 0.8rem;
+}
+
+.meat-display-card select {
+  width: 100%;
+  padding: 10px 12px;
+  padding-right: 30px;
+  border: none;
+  background-color: transparent;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: var(--gray-800);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.meat-display-card select:focus {
+  outline: 2px solid var(--red-500);
+  outline-offset: -2px;
+}
