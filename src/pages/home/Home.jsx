@@ -36,7 +36,7 @@ const Home = () => {
     <div className="dashboard-container">
       <Header />
       <div className="main-content">
-        <MeatForm />
+        <MeatForm updateData={getData} />
         <MeatList meats={meats} />
       </div>
     </div>

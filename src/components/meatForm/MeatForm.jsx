@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FirebaseConfig from "../../script/firebase/FirebaseConfig";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 import {
@@ -16,15 +16,22 @@ const db = getFirestore(app);
 import "./MeatForm.css";
 import MessageBox from "../messagebox/MessageBox";
 
-function MeatForm() {
+function MeatForm({ updateData }) {
   const [meatName, setMeatName] = useState("");
   const [meatPrice, setMeatPrice] = useState("");
-  const [measure, setMeasure] = useState("/Kg");
+  const [meatMeasure, setMeatMeasure] = useState("/Kg");
   const [meatCategory, setMeatCategory] = useState("Suíno");
+  const [specCategory, setSpecCategory] = useState("");
   const [meatUtility, setMeatUtility] = useState("");
   const [meatImage, setMeatImage] = useState(null);
   const [status, setStatus] = useState(""); // Usado para feedback de envio
   const [statusType, setStatusType] = useState(""); // 'success' ou 'error'
+
+  useEffect(() => {
+    if (meatCategory != "Outros") {
+      setSpecCategory("");
+    }
+  }, [meatCategory]);
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -36,27 +43,27 @@ function MeatForm() {
     e.preventDefault();
     setStatus("Enviando...");
     setStatusType("");
-    addMeat(meatName, meatPrice, meatCategory, meatUtility, meatImage, measure);
+    addMeat(
+      meatName,
+      meatPrice,
+      specCategory == "" ? meatCategory : specCategory,
+      meatUtility,
+      meatImage,
+      meatMeasure
+    );
   };
 
-  async function addMeat(
-    meatName,
-    meatPrice,
-    meatCategory,
-    meatUtility,
-    meatImage,
-    measure
-  ) {
-    if (!meatName || !meatPrice || !meatCategory || !meatUtility || !measure) {
+  async function addMeat(name, price, category, utitls, image, measure) {
+    if (!name || !price || !category || !utitls || !measure || image == null) {
       setStatus("Por favor, preencha todos os campos obrigatórios.");
       setStatusType("error");
       return;
     }
     const item = {
-      name: meatName,
-      price: Number(meatPrice),
-      category: meatCategory,
-      utitls: meatUtility,
+      name: name,
+      price: Number(price),
+      category: category,
+      utitls: utitls,
       measure: measure,
     };
     try {
@@ -64,7 +71,7 @@ function MeatForm() {
       const promise = storage.createFile(
         `${import.meta.env.VITE_BUCKET_ID}`,
         `${docRef.id}`,
-        meatImage
+        image
       );
       promise.then(
         function (docRef) {
@@ -74,7 +81,10 @@ function MeatForm() {
           setMeatName(""); //clean fields
           setMeatPrice("");
           setMeatUtility("");
-          setMeatImage("");
+          setSpecCategory("");
+          setMeatCategory("Suíno")
+          setMeatImage(null);
+          updateData();
         },
         function (error) {
           setStatus("Erro ao salvar dados. Tente novamente.");
@@ -124,8 +134,8 @@ function MeatForm() {
         <div className="select-wrapper">
           <select
             id="meatMeasure"
-            value={measure}
-            onChange={(e) => setMeasure(e.target.value)}
+            value={meatMeasure}
+            onChange={(e) => setMeatMeasure(e.target.value)}
           >
             <option value="/Kg">Por quilo</option>
             <option value="/Und">Por Unidade</option>
@@ -146,9 +156,23 @@ function MeatForm() {
             <option value="Bovino">Bovino</option>
             <option value="Frango">Frango</option>
             <option value="Peixe">Peixe</option>
+            <option value="Outros">Outros</option>
           </select>
         </div>
       </div>
+
+      {meatCategory == "Outros" && (
+        <div className="form-group">
+          <label htmlFor="meatSpecCategory">DIGITE A CATEGORIA</label>
+          <input
+            type="text"
+            id="meatSpecCategory"
+            placeholder="Digite a categoria da carne..."
+            value={specCategory}
+            onChange={(e) => setSpecCategory(e.target.value)}
+          />
+        </div>
+      )}
 
       <div className="form-group">
         <label htmlFor="meatUtility">DIGITE A UTILIDADE</label>
