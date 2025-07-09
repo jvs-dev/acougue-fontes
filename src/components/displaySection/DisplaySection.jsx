@@ -3,10 +3,10 @@ import "./DisplaySection.css";
 import ImageUploadBox from "../imageUploadBox/ImageUploadBox";
 import MeatDisplayCard from "./meatDisplayCard/MeatDisplayCard";
 
-// Adicione onMeatChange, onImageUploadChange e currentImageFiles como props
 function DisplaySection({
   title,
   meats,
+  meatOptions,
   imageUploadCount,
   onMeatChange,
   onImageUploadChange,
@@ -15,7 +15,7 @@ function DisplaySection({
   const imageUploadsIndices = Array.from(
     { length: imageUploadCount },
     (_, i) => i
-  ); // Usamos índices 0-base
+  );
 
   return (
     <div className="display-section">
@@ -27,8 +27,8 @@ function DisplaySection({
               key={idx}
               id={`${title.toLowerCase().replace(" ", "-")}-image-${idx}`}
               label="CLIQUE PARA CARREGAR UMA IMAGEM"
-              currentFile={currentImageFiles[idx]} // Passa o arquivo atual para preview
-              onChange={(file) => onImageUploadChange(idx, file)} // Notifica o pai sobre a mudança
+              currentFile={currentImageFiles[idx]}
+              onChange={(file) => onImageUploadChange(idx, file)}
             />
           ))}
         </div>
@@ -37,7 +37,8 @@ function DisplaySection({
             <MeatDisplayCard
               key={meat.id}
               meat={meat}
-              onMeatChange={onMeatChange} // Passa a função de mudança para o MeatDisplayCard
+              meatOptions={meatOptions} // Passa as opções de carne
+              onMeatChange={onMeatChange}
             />
           ))}
         </div>

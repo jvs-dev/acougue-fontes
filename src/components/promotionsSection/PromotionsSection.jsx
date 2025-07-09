@@ -1,14 +1,12 @@
 import React from "react";
 import "./PromotionsSection.css";
 
-// Adicione onPromotionChange como prop
-function PromotionsSection({ promotions, onPromotionChange }) {
+function PromotionsSection({ promotions, meatOptions, onPromotionChange }) {
   const handleSelectChange = (e, promoId) => {
     onPromotionChange(promoId, "select", e.target.value);
   };
 
   const handleDiscountChange = (e, promoId) => {
-    // Certifique-se de que o valor seja um número
     const value = e.target.value === "" ? "" : Number(e.target.value);
     onPromotionChange(promoId, "discount", value);
   };
@@ -21,18 +19,31 @@ function PromotionsSection({ promotions, onPromotionChange }) {
           <div key={promo.id} className="promotion-item">
             <div className="select-wrapper">
               <select
-                value={promo.selected} // Valor controlado pelo estado pai
-                onChange={(e) => handleSelectChange(e, promo.id)} // Notifica o pai
+                value={promo.selected}
+                onChange={(e) => handleSelectChange(e, promo.id)}
               >
-                {/* Garante que a opção atual esteja disponível, se não for uma das opções padrão */}
-                {promo.selected && !promo.options.includes(promo.selected) && (
-                  <option value={promo.selected}>{promo.selected}</option>
+                {meatOptions.map(
+                  (
+                    option,
+                    index // Renderiza as opções do Firebase
+                  ) => (
+                    <option
+                      key={
+                        option === "Opções de carne"
+                          ? `default-${index}`
+                          : option
+                      }
+                      value={option}
+                    >
+                      {option}
+                    </option>
+                  )
                 )}
-                {promo.options.map((option, index) => (
-                  <option key={index} value={option}>
-                    {option}
-                  </option>
-                ))}
+
+                {!meatOptions.includes(promo.selected) &&
+                  promo.selected !== "Opções de carne" && (
+                    <option value={promo.selected}>{promo.selected}</option>
+                  )}
               </select>
             </div>
             <div className="discount-input-wrapper">
@@ -40,8 +51,8 @@ function PromotionsSection({ promotions, onPromotionChange }) {
               <input
                 type="number"
                 className="discount-value-input"
-                value={promo.discount} // Valor controlado pelo estado pai
-                onChange={(e) => handleDiscountChange(e, promo.id)} // Notifica o pai
+                value={promo.discount}
+                onChange={(e) => handleDiscountChange(e, promo.id)}
                 step="1"
                 min="0"
                 max="100"

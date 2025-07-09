@@ -10,7 +10,7 @@ const db = getFirestore(app);
 import FirebaseConfig from "../../script/firebase/FirebaseConfig";
 import Header from "../../components/header/Header";
 import MeatForm from "../../components/meatForm/MeatForm";
-import MeatList from "../../components/MeatList/MeatList";
+import MeatList from "../../components/meatList/MeatList";
 import "./Home.css";
 
 if (db) {
