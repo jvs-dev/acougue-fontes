@@ -1,0 +1,189 @@
+.price-slide-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.slide1Container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+.slide1ImagesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  height: 100%;
+  width: 30%;
+  overflow: hidden;
+}
+
+.slide1Logo {
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  top: -6%;
+  width: 80%;
+}
+
+.slide1Image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.slide1ImageMask {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(27, 27, 27, 0.15),
+    rgba(27, 27, 27, 0.607)
+  );
+  z-index: 1;
+}
+
+.slide1PricesContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slide1PricesList {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  width: 100%;
+  padding: 20px 3%;
+  margin: 0px;
+  z-index: 2;
+}
+
+.slide1MeatLi {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  color: var(--white);
+  border-bottom: dashed 4px rgba(255, 255, 255, 0.75);
+  width: 100%;
+  padding: 0px;
+  font-family: "Bebas Neue", sans-serif;
+}
+.slide1MeatName {
+  font-size: 6.85vh;
+  margin: 0px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.slide1MeatPrice {
+  font-size: 6.25vh;
+  margin: 0px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.slide1MeatMeasure {
+  font-size: 0.7em;
+  margin: 0px;
+  font-weight: 500;
+  line-height: 100%;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.slide1BackgroundLogo {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.slide1PromoSpan {
+  font-size: 0.6em;
+  margin: 0px;
+  font-weight: 500;
+  line-height: 100%;
+  color: #f5f8bb;
+  opacity: 0.8;
+  text-decoration: line-through;
+  margin-right: 10px;
+}
+
+.smoke-effect {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+@keyframes smokeRise {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    transform: translateY(50%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 0;
+  }
+}
+
+.smoke-effect::before,
+.smoke-effect::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: smokeRise 10s ease infinite;
+}
+
+.smoke-effect::before {
+  height: 60%;
+  bottom: -10%;
+  animation-delay: 0s;
+}
+
+.smoke-effect::after {
+  height: 70%;
+  bottom: -20%;
+  animation-delay: 5s;
+}

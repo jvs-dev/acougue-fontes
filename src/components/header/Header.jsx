@@ -16,7 +16,7 @@ function Header() {
       </div>
       <h1 className="header-title">PAINEL DE CARNES</h1>
       <div className="header-icons">
-        <Link to="/" className="icon-button">
+        <Link to="/play" className="icon-button">
           <ion-icon name="film-outline"></ion-icon>
         </Link>
         {rote == "/edit" ? (

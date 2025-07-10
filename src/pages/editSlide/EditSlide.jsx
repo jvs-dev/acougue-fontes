@@ -177,12 +177,6 @@ function EditSlide() {
               })
             );
           }
-
-          // TODO: Lógica para carregar e exibir as imagens do Appwrite Storage
-          // savedSlideData.tela1ImageIds, savedSlideData.tela2ImageIds
-          // Isso exigiria uma função para obter a URL da imagem do Appwrite
-          // e armazená-la no estado de imageUploads como uma URL ou um objeto File de placeholder.
-          // Por enquanto, imageUploads permanecerão null até o usuário fazer um upload.
         } else {
           console.log(
             "Nenhum dado salvo para o slide encontrado, usando valores padrão."
@@ -190,13 +184,11 @@ function EditSlide() {
         }
       } catch (error) {
         console.error("Falha ao carregar dados iniciais:", error);
-        // Exibir mensagem de erro para o usuário
       }
     };
     fetchDataAndPopulate();
-  }, []); // Executa apenas uma vez no carregamento do componente
+  }, []);
 
-  // Funções de callback para atualizar o estado
   const handleMeatChange = (telaNum, meatId, newSelectedName) => {
     const selectedMeat = availableMeats.find(
       (meat) => meat.name === newSelectedName
@@ -222,7 +214,7 @@ function EditSlide() {
   const handleImageUploadChange = (telaNum, index, newFile) => {
     const updateImageState = (prevState) => {
       const newUploads = [...prevState.imageUploads];
-      newUploads[index] = newFile; // newFile é o objeto File
+      newUploads[index] = newFile;
       return { ...prevState, imageUploads: newUploads };
     };
 
@@ -273,7 +265,6 @@ function EditSlide() {
       await setDoc(doc(db, "slidePannel", "slidesData"), dataToSave);
       console.log("Dados do Firestore salvos:", dataToSave);
 
-      // Exemplo simplificado de upload de imagem para a Tela 1 (primeira imagem)
       if (tela1State.imageUploads[0] instanceof File) {
         try {
           const response = await storage.createFile(
