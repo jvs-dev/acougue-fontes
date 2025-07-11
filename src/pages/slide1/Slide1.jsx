@@ -2,8 +2,6 @@ import React from "react";
 import "./Slide1.css";
 
 function Slide1({ meatsImageUrl, meatsData }) {
-  console.log(meatsData);
-
   return (
     <div
       className="price-slide-container"

@@ -1,0 +1,145 @@
+.slide2 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-position: center;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 30px;
+}
+.slide2Container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 25%;
+  height: 100%;
+}
+
+.slide2Logotipo {
+  width: 60%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  margin: 0px 0px -7vh 0px;
+}
+
+.slide2PromoCard {
+  font-family: "Bebas Neue", sans-serif;
+  width: 100%;
+  padding: 12% 5px 0px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  gap: 10px;
+  border-top: solid 6px #f5f8bb;
+}
+
+.slide2PromoCard.active {
+  padding: 20px 5px;
+  background: var(--white);
+  color: var(--red-600);
+  border-radius: 24px;
+  border-top: none;
+}
+
+.promoCardName {
+  font-size: 2.4em;
+  margin: 0px;
+  line-height: 100%;
+}
+
+.promoCardPrice {
+  font-size: 2em;
+  margin: 0px;
+  line-height: 100%;
+}
+
+.slide2Container2 {
+  width: calc(45% - 80px);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide2CenterImage {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border: solid 12px #fff;
+  border-radius: 5px;
+}
+
+.slide2Container3 {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slide2NominativeLogo {
+  width: 100%;
+  aspect-ratio: 2/1;
+  object-fit: cover;
+}
+
+.slide2PricesList {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  width: 100%;
+  padding: 20px 0px;
+  margin: 0px;
+}
+
+.slide2MeatLi {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  color: var(--white);
+  border-bottom: dashed 4px rgba(255, 255, 255, 0.75);
+  width: 100%;
+  padding: 0px;
+  font-family: "Bebas Neue", sans-serif;
+}
+.slide2MeatName {
+  font-size: 2.2em;
+  margin: 0px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.slide2MeatPrice {
+  font-size: 1.9em;
+  margin: 0px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.slide2MeatMeasure {
+  font-size: 0.7em;
+  margin: 0px;
+  font-weight: 500;
+  line-height: 100%;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.slide2PromoSpan {
+  font-size: 0.6em;
+  margin: 0px;
+  font-weight: 500;
+  line-height: 100%;
+  color: #f5f8bb;
+  opacity: 0.8;
+  text-decoration: line-through;
+  margin-right: 10px;
+}

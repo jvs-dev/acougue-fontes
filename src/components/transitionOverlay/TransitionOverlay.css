@@ -1,0 +1,22 @@
+.transition-overlay {
+  position: absolute;
+  top: 0;
+  left: 100%; /* Começa fora da tela, à direita */
+  width: 100%;
+  height: 100%;
+  background-color: red; /* O quadrado vermelho */
+  z-index: 1000; /* Garante que fique acima de tudo */
+  animation: slideOutLeft 0.5s forwards; /* Animação para deslizar */
+}
+
+@keyframes slideOutLeft {
+  0% {
+    left: 100%; /* Inicia na direita, fora da tela */
+  }
+  50% {
+    left: 0; /* Desliza para cobrir completamente a tela */
+  }
+  100% {
+    left: -100%; /* Desliza para a esquerda, para fora da tela */
+  }
+}
