@@ -10,8 +10,8 @@ const db = getFirestore(app);
 import FirebaseConfig from "../../script/firebase/FirebaseConfig";
 import Header from "../../components/header/Header";
 import MeatForm from "../../components/meatForm/MeatForm";
-import MeatList from "../../components/meatList/MeatList";
 import "./Home.css";
+import ListOfMeats from "../../components/listOfMeats/ListOfMeats";
 
 if (db) {
   console.log("ok");
@@ -37,7 +37,7 @@ const Home = () => {
       <Header />
       <div className="main-content">
         <MeatForm updateData={getData} />
-        <MeatList meats={meats} />
+        <ListOfMeats meats={meats} />
       </div>
     </div>
   );

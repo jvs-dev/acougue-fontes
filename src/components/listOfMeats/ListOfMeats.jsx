@@ -1,8 +1,8 @@
 import React from 'react';
 import MeatCard from '../meatcard/MeatCard';
-import './MeatList.css';
+import './ListOfMeats.css';
 
-function MeatList({ meats }) {  
+function ListOfMeats({ meats }) {  
   
   return (
     <div className="meat-list-section">
@@ -16,4 +16,4 @@ function MeatList({ meats }) {
   );
 }
 
-export default MeatList;
+export default ListOfMeats;
