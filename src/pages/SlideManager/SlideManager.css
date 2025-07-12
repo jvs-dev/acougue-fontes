@@ -12,3 +12,67 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
+.transitionDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: var(--red-500);
+  z-index: 1000;
+  opacity: 0;
+  animation: transitionSlide 2s ease-in-out forwards;
+}
+.transitionDiv img {  
+  height: 50vh;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  z-index: 1001;  
+}
+.transitionDiv::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: var(--red-600);
+  height: 100%;
+  width: 0%;
+  animation: incrementWidth 1s ease-in-out forwards;
+}
+
+.transitionDiv::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #f5f8bb;
+  height: 100%;
+  width: 0%;
+  animation: incrementWidth 0.9s ease-in-out forwards;
+}
+
+@keyframes incrementWidth {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes transitionSlide {
+  0% {
+    opacity: 1;
+    transform: translateX(100vw);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-100vw);
+  }
+}

@@ -31,6 +31,16 @@ function SlideManager() {
   const [priceMeatsData, setPriceMeatsData] = useState([]);
   const [availableMeats, setAvailableMeats] = useState([]);
   const [slideActive, setSlideActive] = useState(1);
+  const [slideAnimation, setSlideAnimation] = useState(false);
+
+  useEffect(() => {
+    if (slideAnimation) {
+      const timer = setTimeout(() => {
+        setSlideAnimation(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [slideAnimation]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -140,16 +150,19 @@ function SlideManager() {
     };
 
     const intervalId = setInterval(() => {
-      setSlideActive((prevSlideActive) => {
-        switch (prevSlideActive) {
-          case 1:
-            return 2;
-          case 2:
-            return 1;
-          default:
-            return 1;
-        }
-      });
+      setSlideAnimation(true);
+      setTimeout(() => {
+        setSlideActive((prevSlideActive) => {
+          switch (prevSlideActive) {
+            case 1:
+              return 2;
+            case 2:
+              return 1;
+            default:
+              return 1;
+          }
+        });
+      }, 1000);
     }, timeToSlide);
 
     fetchData();
@@ -158,6 +171,7 @@ function SlideManager() {
 
   return (
     <div className="slideManagerDiv">
+      {slideAnimation && <div className="transitionDiv"><img src="./simbolo.png" alt="Logo" /></div>}
       {slideActive == 1 && (
         <Slide1
           meatsImageUrl={slide1image1}

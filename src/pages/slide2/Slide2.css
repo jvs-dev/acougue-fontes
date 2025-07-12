@@ -143,3 +143,12 @@
   text-decoration: line-through;
   margin-right: 10px;
 }
+
+@media (max-height: 605px) {
+  .slide2Container1 {
+    justify-content: space-around;
+  }
+  .slide2Logotipo {
+    display: none;
+  }
+}
