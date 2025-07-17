@@ -1,52 +1,92 @@
-/* src/components/TipSection.css */
+/* src/components/TipSection/TipSection.css */
 
-.tip-section {
-  background-color: var(--gray-900); /* Fundo escuro como na imagem */
-  color: var(--white);
-  padding: 20px;
+.tip-section-manager {
+  background-color: #2e2e2e; /* Fundo escuro para o painel de gerenciamento */
+  color: white;
+  padding: 30px;
   border-radius: 8px;
+  max-width: 1200px;
+  margin: 40px auto; /* Centraliza o painel */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  font-family: Arial, sans-serif;
 }
 
 .tip-title {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 2.5em;
+  color: #ff0000; /* Vermelho vibrante */
   text-align: center;
-  margin-bottom: 20px;
-  color: var(--red-500);
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #ff0000;
+  padding-bottom: 10px;
+  letter-spacing: 1.5px;
 }
 
-.tip-grid {
+.tip-grid-editable {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Colunas responsivas */
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Colunas responsivas */
+  gap: 25px;
+  margin-bottom: 30px;
 }
 
-.tip-column {
-  background-color: var(--gray-800); /* Fundo um pouco mais claro para as colunas */
-  border-radius: 6px;
+.tip-column-editable {
+  background-color: #3a3a3a; /* Fundo para cada coluna/card de edição */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.tip-column-editable label {
+  font-size: 0.9em;
+  color: #bbb;
+  margin-bottom: 5px;
+  display: block; /* Garante que o label ocupe sua própria linha */
+}
+
+.tip-column-title-textarea,
+.tip-meat-list-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #666;
+  border-radius: 5px;
+  background-color: #555;
+  color: white;
+  font-size: 1em;
+  resize: vertical; /* Permite redimensionar verticalmente */
+  box-sizing: border-box; /* Inclui padding e borda no width/height */
+}
+
+.tip-column-title-textarea {
+    font-weight: bold;
+    color: #ff0000; /* Títulos em vermelho */
+    font-size: 1.1em;
+}
+
+.save-tips-button {
+  display: block;
+  width: 250px;
   padding: 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 0 auto; /* Centraliza o botão */
+  background-color: #007bff; /* Azul vibrante */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.tip-column-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  text-align: center;
-  color: var(--white);
-  padding-bottom: 5px;
-  border-bottom: 1px solid var(--gray-700);
+.save-tips-button:hover {
+  background-color: #0056b3;
 }
 
-.tip-meat-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.tip-meat-list li {
-  font-size: 0.95rem;
-  color: var(--gray-200);
-  padding: 5px 0;
-  text-align: center;
-}
+/* Estilos para o modo de exibição (Slide3) */
+/* Se você ainda for usar o Slide3 em um modo de exibição pura,
+   você pode criar um componente `DisplayTipSection.jsx`
+   e transferir os estilos de `table`, `th`, `td` para lá.
+   Por enquanto, estou focando no `TipSection` como um painel de gerenciamento.
+   Caso queira manter um único `TipSection` que muda de modo,
+   a lógica seria mais complexa com um `isEditing` estado. */

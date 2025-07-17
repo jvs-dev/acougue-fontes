@@ -10,18 +10,21 @@ function Slide2({ meatsImageUrl, meatsData }) {
       <div className="smoke-effect"></div>
       <div className="slide2Container1">
         <img className="slide2Logotipo" src="./logotipo.png" alt="Logotipo" />
-        <div className="slide2PromoCard active">
-          <p className="promoCardName">Asinha de frango</p>
-          <p className="promoCardPrice">R$ 19, 98</p>
-        </div>
-        <div className="slide2PromoCard">
-          <p className="promoCardName">Asinha de frango</p>
-          <p className="promoCardPrice">R$ 19, 98</p>
-        </div>
-        <div className="slide2PromoCard">
-          <p className="promoCardName">Asinha de frango</p>
-          <p className="promoCardPrice">R$ 19, 98</p>
-        </div>
+        {meatsData.map((meat, index) => {
+          if (meat.oldPrice) {
+            return (
+              <div
+                className={`slide2PromoCard ${index == 0 ? "active" : ""}`}
+                key={index}
+              >
+                <p className="promoCardName">
+                  {meat.name.replace(" (PROMOÇÃO)", "")}
+                </p>
+                <p className="promoCardPrice">{meat.price}</p>
+              </div>
+            );
+          }
+        })}
       </div>
       <div className="slide2Container2">
         <img

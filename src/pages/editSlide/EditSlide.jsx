@@ -385,7 +385,7 @@ function EditSlide() {
           meatOptions={meatOptions}
           onPromotionChange={handlePromotionChange}
         />
-        <TipSection tipCategories={tipCategories} />
+        <TipSection />
       </div>
       <MessageBox
         message={status}

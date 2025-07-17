@@ -8,6 +8,7 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/11.10.0/firebas
 import GetAllMeats from "../../script/meats/GetAllMeats";
 import GetSlideData from "../../script/slide/GetSlideData";
 import Slide2 from "../slide2/Slide2";
+import Slide3 from "../slide3/slide3";
 
 const app = initializeApp(FirebaseConfig);
 const db = getFirestore(app);
@@ -124,7 +125,7 @@ function SlideManager() {
             savedSlideData.promotions.forEach((promoItem) => {
               combinedMeats.forEach((meat) => {
                 if (meat.id == promoItem.selectedId) {
-                  console.log(promoItem);
+                  /* console.log(promoItem); */
                   let discountedPrice =
                     Number(`${meat.price}`.replace("R$ ", "")) -
                     (Number(`${meat.price}`.replace("R$ ", "")) *
@@ -154,12 +155,14 @@ function SlideManager() {
       setTimeout(() => {
         setSlideActive((prevSlideActive) => {
           switch (prevSlideActive) {
-            case 1:
+            /* case 1:
               return 2;
             case 2:
-              return 1;
+              return 3;
+              case 3:
+              return 1; */
             default:
-              return 1;
+              return 3;
           }
         });
       }, 1000);
@@ -187,11 +190,10 @@ function SlideManager() {
             meat.slidesShow.includes(2)
           )}
         />
+      )}      
+      {slideActive == 3 && (
+        <Slide3 meatsDataForTips={availableMeats} />
       )}
-      {/* Adicione o Slide3 aqui quando ele for criado, e filtre os dados para ele */}
-      {/* {slideActive === 3 && (
-        <Slide3 meatsImageUrl={slideXimageY} meatsData={priceMeatsData.filter(meat => meat.slidesShow.includes(3))} />
-      )} */}
     </div>
   );
 }

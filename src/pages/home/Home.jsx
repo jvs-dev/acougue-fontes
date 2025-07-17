@@ -13,10 +13,6 @@ import MeatForm from "../../components/meatForm/MeatForm";
 import "./Home.css";
 import ListOfMeats from "../../components/listOfMeats/ListOfMeats";
 
-if (db) {
-  console.log("ok");
-}
-
 const Home = () => {
   const [meats, setMeats] = useState([]);
 
