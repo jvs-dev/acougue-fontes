@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./SlideManager.css";
-import Slide1 from "../slide1/Slide1";
 import { Client, Storage } from "appwrite";
 import FirebaseConfig from "../../script/firebase/FirebaseConfig";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 import GetAllMeats from "../../script/meats/GetAllMeats";
 import GetSlideData from "../../script/slide/GetSlideData";
+import Slide1 from "../slide1/Slide1";
 import Slide2 from "../slide2/Slide2";
 import Slide3 from "../slide3/slide3";
 
