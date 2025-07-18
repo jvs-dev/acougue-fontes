@@ -8,7 +8,7 @@ import GetAllMeats from "../../script/meats/GetAllMeats";
 import GetSlideData from "../../script/slide/GetSlideData";
 import Slide1 from "../slide1/Slide1";
 import Slide2 from "../slide2/Slide2";
-import Slide3 from "../slide3/slide3";
+import SlideTips from "../slidetips/SlideTips";
 
 const app = initializeApp(FirebaseConfig);
 const db = getFirestore(app);
@@ -194,7 +194,7 @@ function SlideManager() {
         />
       )}      
       {slideActive == 3 && (
-        <Slide3 />
+        <SlideTips />
       )}
     </div>
   );

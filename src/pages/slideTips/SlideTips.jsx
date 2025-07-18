@@ -1,6 +1,6 @@
 // src/components/DisplayTipSection/DisplayTipSection.jsx
 import React, { useState, useEffect } from "react";
-import "./Slide3.css"; // Crie um CSS específico para exibição
+import "./SlideTips.css"; // Crie um CSS específico para exibição
 import {
   getFirestore,
   doc,
@@ -13,7 +13,7 @@ const app = initializeApp(FirebaseConfig);
 const db = getFirestore(app);
 const docId = "meatTipsData"; // ID fixo do documento no Firebase para as dicas
 
-function Slide3() {
+function SlideTips() {
   const [tipsDisplayData, setTipsDisplayData] = useState([]);
 
   useEffect(() => {
@@ -114,4 +114,4 @@ function Slide3() {
   );
 }
 
-export default Slide3;
+export default SlideTips;
