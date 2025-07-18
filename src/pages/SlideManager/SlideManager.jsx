@@ -8,7 +8,7 @@ import GetAllMeats from "../../script/meats/GetAllMeats";
 import GetSlideData from "../../script/slide/GetSlideData";
 import Slide1 from "../slide1/Slide1";
 import Slide2 from "../slide2/Slide2";
-import SlideTips from "../slidetips/SlideTips";
+import SlideTips from "../slideTips/SlideTips";
 
 const app = initializeApp(FirebaseConfig);
 const db = getFirestore(app);
