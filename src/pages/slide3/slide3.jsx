@@ -1,37 +1,74 @@
-// src/components/slide3/Slide3.jsx
-import React from "react";
-import "./Slide3.css";
+// src/components/DisplayTipSection/DisplayTipSection.jsx
+import React, { useState, useEffect } from "react";
+import "./Slide3.css"; // Crie um CSS específico para exibição
+import {
+  getFirestore,
+  doc,
+  getDoc,
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import FirebaseConfig from "../../script/firebase/FirebaseConfig";
 
-function Slide3({ meatsDataForTips }) {
-  // Nomes das colunas da tabela, correspondendo às categorias da imagem
+const app = initializeApp(FirebaseConfig);
+const db = getFirestore(app);
+const docId = "meatTipsData"; // ID fixo do documento no Firebase para as dicas
+
+function Slide3() {
+  const [tipsDisplayData, setTipsDisplayData] = useState([]);
+
+  useEffect(() => {
+    const fetchTipsData = async () => {
+      try {
+        const docRef = doc(db, "slideData", docId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          // Formata os dados para exibição (split por nova linha)
+          const formattedData = Object.entries(data).map(
+            ([title, meatsString]) => ({
+              title: title.split("\n"), // Dividir o título em linhas
+              meats: meatsString
+                .split("\n")
+                .filter((line) => line.trim() !== ""), // Dividir carnes por linha
+            })
+          );
+          setTipsDisplayData(formattedData);
+        } else {
+          console.log("Nenhum dado de dicas para exibição encontrado.");
+          setTipsDisplayData([]); // Ou dados padrão para exibição
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados de dicas para exibição:", error);
+      }
+    };
+    fetchTipsData();
+  }, []);
+
+  // Nomes das colunas da tabela para exibição (pode ser hardcoded ou baseado em tipsDisplayData)
   const categories = [
-    {
-      title: "BIFE GRELHADO\nBIFE FRITO\nSTROGONOFF",
-      filterKeys: ["Bife Grelhado", "Bife Frito", "Strogonoff"],
-    },
-    {
-      title: "CARNE DE PANELA\nENSOPADO\nCARNE MOÍDA",
-      filterKeys: ["Carne de Panela", "Ensopado", "Carne Moída"],
-    },
-    { title: "CARNE ASSADA", filterKeys: ["Carne Assada"] },
-    { title: "CHURRASCO", filterKeys: ["Churrasco"] },
+    { titleLines: ["BIFE GRELHADO", "BIFE FRITO", "STROGONOFF"] },
+    { titleLines: ["CARNE DE PANELA", "ENSOPADO", "CARNE MOÍDA"] },
+    { titleLines: ["CARNE ASSADA"] },
+    { titleLines: ["CHURRASCO"] },
   ];
 
-  // Função para obter todas as carnes que se encaixam nas filterKeys para uma categoria
-  const getMeatsForCategory = (filterKeys) => {
-    const uniqueMeats = new Set();
-    meatsDataForTips.forEach((meat) => {
-      // Verifica se a carne tem o campo 'utitls' e se seu valor está incluído nas filterKeys
-      if (meat.utitls && filterKeys.includes(meat.utitls)) {
-        uniqueMeats.add(meat.name);
-      }
-    });
-    return Array.from(uniqueMeats);
+  // Função para pegar as carnes para exibição na célula
+  const getMeatsForDisplayCell = (categoryTitleLines, rowIndex) => {
+    // Encontra a categoria correspondente nos dados carregados
+    const categoryData = tipsDisplayData.find(
+      (item) => item.title.join("\n") === categoryTitleLines.join("\n") // Compara títulos inteiros
+    );
+    if (categoryData && categoryData.meats[rowIndex]) {
+      return categoryData.meats[rowIndex];
+    }
+    return "";
   };
 
-  // Determinar o número máximo de itens em qualquer categoria para renderizar as linhas da tabela
-  const maxItems = Math.max(
-    ...categories.map((cat) => getMeatsForCategory(cat.filterKeys).length)
+  // Encontra o número máximo de linhas em qualquer categoria
+  const maxRows = Math.max(
+    ...tipsDisplayData.map((item) => item.meats.length),
+    0
   );
 
   return (
@@ -43,13 +80,13 @@ function Slide3({ meatsDataForTips }) {
       />
       <div className="slide3-container">
         <h2 className="slide3Title">DICA DE QUAL CARNE USAR:</h2>
-        <div className="slide3-table-wrapper">
+        <div className="display-tip-table-wrapper">
           <table>
             <thead>
               <tr>
                 {categories.map((category, index) => (
                   <th key={index}>
-                    {category.title.split("\n").map((line, i) => (
+                    {category.titleLines.map((line, i) => (
                       <span key={i}>
                         {line}
                         <br />
@@ -60,16 +97,13 @@ function Slide3({ meatsDataForTips }) {
               </tr>
             </thead>
             <tbody>
-              {Array.from({ length: maxItems }).map((_, rowIndex) => (
+              {Array.from({ length: maxRows }).map((_, rowIndex) => (
                 <tr key={rowIndex}>
-                  {categories.map((category, colIndex) => {
-                    const meatsInThisCategory = getMeatsForCategory(
-                      category.filterKeys
-                    );
-                    const meatName = meatsInThisCategory[rowIndex] || "";
-
-                    return <td key={colIndex}>{meatName}</td>;
-                  })}
+                  {categories.map((category, colIndex) => (
+                    <td key={colIndex}>
+                      {getMeatsForDisplayCell(category.titleLines, rowIndex)}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>

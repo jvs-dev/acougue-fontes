@@ -28,7 +28,7 @@ const slide2image1 = storage.getFileDownload(
 );
 
 function SlideManager() {
-  const timeToSlide = 10000;
+  const timeToSlide = 20000;
   const [priceMeatsData, setPriceMeatsData] = useState([]);
   const [availableMeats, setAvailableMeats] = useState([]);
   const [slideActive, setSlideActive] = useState(1);
@@ -36,8 +36,10 @@ function SlideManager() {
 
   useEffect(() => {
     if (slideAnimation) {
+      document.querySelector('body').style.overflow = 'hidden';
       const timer = setTimeout(() => {
         setSlideAnimation(false);
+        document.querySelector('body').style.overflow = '';
       }, 2000);
       return () => clearTimeout(timer);
     }
@@ -155,14 +157,14 @@ function SlideManager() {
       setTimeout(() => {
         setSlideActive((prevSlideActive) => {
           switch (prevSlideActive) {
-            /* case 1:
+            case 1:
               return 2;
             case 2:
               return 3;
               case 3:
-              return 1; */
+              return 1;
             default:
-              return 3;
+              return 1;
           }
         });
       }, 1000);
@@ -192,7 +194,7 @@ function SlideManager() {
         />
       )}      
       {slideActive == 3 && (
-        <Slide3 meatsDataForTips={availableMeats} />
+        <Slide3 />
       )}
     </div>
   );
