@@ -31,7 +31,7 @@ function SlideTips({ tipsDisplayData }) {
   };
 
   return (
-    <div className="slide3BoxFormatter">
+    <div className="slide3BoxFormatter" style={{backgroundImage: "url(./slide3Backgroundwrapp.png)"}}>
       <img
         className="slide3BackImage"
         src="./slide3Background.png"
