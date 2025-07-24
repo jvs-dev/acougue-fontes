@@ -1,13 +1,13 @@
 import React from "react";
 import "./Slide2.css";
 
-function Slide2({ meatsImageUrl, meatsData }) {
+function Slide2({ meatsImageUrl, meatsData, smoke }) {
   return (
     <div
       className="slide2"
       style={{ backgroundImage: `url(./backgroundSlide1.png)` }}
     >
-      <div className="smoke-effect"></div>
+      {smoke == true && <div className="smoke-effect"></div>}
       <div className="slide2Container1">
         <img className="slide2Logotipo" src="./logotipo.png" alt="Logotipo" />
         {meatsData.map((meat, index) => {
