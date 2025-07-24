@@ -104,7 +104,7 @@ function TipSection() {
         ))}
       </div>
       <button onClick={handleSaveTips} className="save-tips-button">
-        Salvar Dicas no Firebase
+        Salvar
       </button>
     </div>
   );

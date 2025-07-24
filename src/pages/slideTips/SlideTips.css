@@ -7,6 +7,8 @@
   padding: 20px;
   background-image: url("./slide3Backgroundwrapp.png");
   color: white;
+  position: relative; /* Adicionado para posicionamento da imagem de fundo */
+  overflow: hidden; /* Garante que nada saia da tela */
 }
 
 .slide3BackImage {
@@ -16,6 +18,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 1; /* A imagem deve ficar no fundo */
 }
 .slide3-container {
   width: 100%;
@@ -25,24 +28,30 @@
   align-items: center;
   justify-content: flex-start;
   color: white;
-  font-family: Arial, sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   box-sizing: border-box;
-  padding: 20px 0px 0px 0px;
-  overflow: hidden; /* Evita barras de rolagem se o conteúdo for muito grande */
-  z-index: 2;
+  padding: 10px 0px 0px 0px;
+  overflow: hidden;
+  z-index: 2; 
   border: solid 1px #f5f8bb;
   border-radius: 41px;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Adicionado um fundo semi-transparente para o container principal */
 }
 
 .slide3Title {
   font-family: "Bebas Neue", sans-serif;
   font-weight: 500;
   margin: 0;
-  font-size: 3em;
+  font-size: 3.4em;
   color: #f5f8bb;
   text-align: center;
   text-transform: uppercase;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
   letter-spacing: 2px;
 }
 
@@ -51,12 +60,21 @@
   width: 100%;
   border-radius: 8px;
   overflow: hidden;
+  flex-grow: 1; /* Permite que a tabela ocupe o espaço restante */
+  display: flex; /* Adicionado para centralizar a tabela dentro do wrapper, se necessário */
+  justify-content: center;
+  align-items: center;
 }
 
 /* Estilos da tabela (table, thead, th, tbody, td) */
 .display-tip-table-wrapper table {
   width: 100%;
   border-collapse: collapse;
+  max-width: 100%; /* Garante que a tabela não transborde */
+}
+
+.display-tip-table-wrapper thead {
+  /* background-color: #444; Removido para usar a transparência do td */
 }
 
 .display-tip-table-wrapper th {
@@ -64,26 +82,10 @@
   color: #fff;
   text-transform: uppercase;
   position: relative;
-  /* Removendo as propriedades flex que estavam causando o problema de layout: */
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* height: 100%; */
-
-  /* Propriedades para centralização vertical do texto dentro do TH */
-  vertical-align: middle; /* Alinha o conteúdo verticalmente ao meio da célula */
-  line-height: 1.2; /* Ajuste a altura da linha conforme necessário para melhor espaçamento */
+  vertical-align: middle; /* Centraliza verticalmente o texto no theader */
+  line-height: 110%;
   font-weight: 400;
-  font-size: 2.7em;
-  /* Garante que o TH tenha uma altura base para o vertical-align funcionar */
-  /* Se o TH tiver conteúdo de múltiplas linhas, o browser já calculará a altura. */
-  /* Se precisar de uma altura mínima, pode adicionar min-height aqui */
-}
-
-.display-tip-table-wrapper th span {
-  display: block; /* Garante que cada linha se comporte como um bloco */
-  white-space: nowrap; /* Evita quebras de linha indesejadas em palavras longas */
+  font-size: 2.7em;  
 }
 
 .display-tip-table-wrapper th:last-child {
@@ -108,7 +110,7 @@
   height: 75%;
   width: 3px;
   background-color: #fff;
-  margin-top: 7.5%;
+  margin-top: 10px;
 }
 
 .display-tip-table-wrapper th:last-child:before {
@@ -117,20 +119,40 @@
 }
 
 .display-tip-table-wrapper tbody tr:nth-child(even) {
-  background-color: #fff;
+  /* background-color: #fff; Removido, esta era a causa das caixas brancas */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.3
+  ); /* Fundo escuro semi-transparente para linhas pares */
+}
+.display-tip-table-wrapper tbody tr:nth-child(odd) {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* Fundo escuro semi-transparente para linhas ímpares */
 }
 
 .display-tip-table-wrapper td {
-  padding: 20px;
+  padding: 10px; /* Ajuste este valor se as "caixas" ainda forem grandes */
   font-weight: 600;
   font-size: 1.8em;
-  line-height: 1.2; /* Ajuste para o espaçamento das carnes também */
+  line-height: 100%;
   letter-spacing: 1.6px;
-  color: #fff;
+  color: #fff; /* A cor do texto é branca */
   text-align: center;
   position: relative;
-  vertical-align: middle; /* CENTRALIZA VERTICALMENTE O TEXTO DENTRO DA CÉLULA */
-  height: 100%; /* Garante que a célula ocupe a altura total da linha */
+  vertical-align: middle; /* Centraliza verticalmente o texto dentro da célula */
+  height: auto; /* Ajuste para que a altura seja definida pelo conteúdo */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0
+  ); /* Garante que o fundo da célula seja transparente */
 }
 
 .display-tip-table-wrapper td::before {
@@ -147,6 +169,10 @@
 .display-tip-table-wrapper td:last-child:before {
   content: "";
   display: none;
+}
+/* Linhas horizontais pontilhadas entre as linhas do corpo da tabela */
+.display-tip-table-wrapper tbody tr:not(:last-child) td {
+  border-bottom: 1px dashed #555;
 }
 
 @media (max-width: 768px) {

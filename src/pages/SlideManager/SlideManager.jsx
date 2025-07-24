@@ -3,7 +3,11 @@ import "./SlideManager.css";
 import { Client, Storage } from "appwrite";
 import FirebaseConfig from "../../script/firebase/FirebaseConfig";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 import GetAllMeats from "../../script/meats/GetAllMeats";
 import GetSlideData from "../../script/slide/GetSlideData";
 import Slide1 from "../slide1/Slide1";
@@ -28,18 +32,78 @@ const slide2image1 = storage.getFileDownload(
 );
 
 function SlideManager() {
-  const timeToSlide = 20000;
+  const [settingsData, setSettingsData] = useState({});
   const [priceMeatsData, setPriceMeatsData] = useState([]);
   const [availableMeats, setAvailableMeats] = useState([]);
   const [slideActive, setSlideActive] = useState(1);
   const [slideAnimation, setSlideAnimation] = useState(false);
+  const [tipsDisplayData, setTipsDisplayData] = useState(null);
+
+  // Mapeamento explícito das chaves do Firebase para os títulos de exibição formatados.
+  // Esta é a forma de transformar "Bife grelhadoBife fritostrogonoff" em ["BIFE GRELHADO", "BIFE FRITO", "STROGONOFF"].
+  // Se os títulos puderem ser alterados pelo painel de administração, essa lista precisará ser dinâmica
+  // ou os títulos devem ser salvos no Firebase já no formato de exibição.
+  const firebaseKeyToDisplayTitleMap = {
+    bifegrelhadobifefritostrogonoff: [
+      "BIFE GRELHADO",
+      "BIFE FRITO",
+      "STROGONOFF",
+    ],
+    "carnedepanelaensopadocarne moída": [
+      "CARNE DE PANELA",
+      "ENSOPADO",
+      "CARNE MOÍDA",
+    ],
+    "carne assada": ["CARNE ASSADA"],
+    churrasco: ["CHURRASCO"],
+  };
+
+  useEffect(() => {
+    const fetchTipsData = async () => {
+      try {
+        const docRef = doc(db, "slideData", "meatTipsData");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const formattedData = Object.entries(data).map(
+            ([firebaseKey, meatsString]) => {
+              // Obtém as linhas de título formatadas usando o mapa, ou um fallback
+              const displayTitleLines = firebaseKeyToDisplayTitleMap[
+                firebaseKey
+              ] || [firebaseKey.toUpperCase()];
+
+              return {
+                titleLines: displayTitleLines, // Título formatado para exibição
+                meats: meatsString
+                  .split(",") // Divide as carnes por vírgula (como no Firebase)
+                  .map((line) => line.trim()) // Remove espaços em branco
+                  .filter((line) => line !== ""), // Remove strings vazias
+              };
+            }
+          );
+          setTipsDisplayData(formattedData);
+          console.log(
+            "Dados das dicas formatados para SlideTips:",
+            formattedData
+          ); // Para depuração
+        } else {
+          console.log("Nenhum dado de dicas para exibição encontrado.");
+          setTipsDisplayData([]); // Define como array vazio se não houver dados
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados de dicas para exibição:", error);
+      }
+    };
+    fetchTipsData();
+  }, []);
 
   useEffect(() => {
     if (slideAnimation) {
-      document.querySelector('body').style.overflow = 'hidden';
+      document.querySelector("body").style.overflow = "hidden";
       const timer = setTimeout(() => {
         setSlideAnimation(false);
-        document.querySelector('body').style.overflow = '';
+        document.querySelector("body").style.overflow = "";
       }, 2000);
       return () => clearTimeout(timer);
     }
@@ -141,7 +205,6 @@ function SlideManager() {
             });
           }
           setPriceMeatsData(combinedMeats);
-          console.log(combinedMeats);
         } else {
           console.log(
             "Nenhum dado salvo para o slide 'slidesData' encontrado."
@@ -152,33 +215,73 @@ function SlideManager() {
       }
     };
 
-    const intervalId = setInterval(() => {
-      setSlideAnimation(true);
-      setTimeout(() => {
+    let intervalId;
+
+    async function loadData() {
+      const docRef = doc(db, "settings", "customSlide");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setSettingsData(docSnap.data());
+        let time = docSnap.data().slideTime * 1000;
+        intervalId = setInterval(() => {
+          setSlideAnimation(true);
+          setTimeout(() => {
+            setSlideActive((prevSlideActive) => {
+              switch (prevSlideActive) {
+                case 1:
+                  return 2;
+                case 2:
+                  return 3;
+                case 3:
+                  return 1;
+                default:
+                  return 1;
+              }
+            });
+          }, 1000);
+        }, time);
+      }
+    }
+
+    document.addEventListener("keydown", function (event) {
+      const tecla = event.keyCode;
+
+      if (tecla >= 48 && tecla <= 57) {
+        const numero = tecla - 48;
+        if (numero == 1 || numero == 2 || numero == 3) {
+          setSlideActive(numero);
+        }
+      } else if (event.key === "Enter") {
         setSlideActive((prevSlideActive) => {
           switch (prevSlideActive) {
             case 1:
               return 2;
             case 2:
               return 3;
-              case 3:
+            case 3:
               return 1;
             default:
               return 1;
           }
         });
-      }, 1000);
-    }, timeToSlide);
+      }      
+    });
 
     fetchData();
+    loadData();
     return () => clearInterval(intervalId);
   }, []);
 
   return (
     <div className="slideManagerDiv">
-      {slideAnimation && <div className="transitionDiv"><img src="./simbolo.png" alt="Logo" /></div>}
+      {slideAnimation && (
+        <div className="transitionDiv">
+          <img src="./simbolo.png" alt="Logo" />
+        </div>
+      )}
       {slideActive == 1 && (
         <Slide1
+          smoke={settingsData.smokeEffect}
           meatsImageUrl={slide1image1}
           meatsData={priceMeatsData.filter((meat) =>
             meat.slidesShow.includes(1)
@@ -187,15 +290,14 @@ function SlideManager() {
       )}
       {slideActive == 2 && (
         <Slide2
+          smoke={settingsData.smokeEffect}
           meatsImageUrl={slide2image1}
           meatsData={priceMeatsData.filter((meat) =>
             meat.slidesShow.includes(2)
           )}
         />
-      )}      
-      {slideActive == 3 && (
-        <SlideTips />
       )}
+      {slideActive == 3 && <SlideTips tipsDisplayData={tipsDisplayData} />}
     </div>
   );
 }

@@ -28,9 +28,16 @@ function Header() {
             <img src="VideoEditIcon.svg" alt="Editar Filme" />
           </Link>
         )}
-        <button className="icon-button">
-          <ion-icon name="menu"></ion-icon>
-        </button>
+
+        {rote == "/settings" ? (
+          <Link to="/" className="icon-button">
+            <ion-icon name="home"></ion-icon>
+          </Link>
+        ) : (
+          <Link to="/settings" className="icon-button">
+            <ion-icon name="settings-sharp"></ion-icon>
+          </Link>
+        )}
       </div>
     </header>
   );
